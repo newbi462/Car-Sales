@@ -19,12 +19,23 @@ export const carReducer = (state = initialState, action) => {
   console.log(state, action);
   switch (action.type) {
     case "REMOVE_FEATURE":
+      console.log("REMOVE_FEATURE")
+      console.log(action.payload);
       return {
-        //
+        additionalPrice: state.additionalPrice - action.payload.price,
+        car: {
+          price: 26395,
+          name: '2019 Ford Mustang',
+          image:
+            'https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg',
+          features: [...state.car.features.filter(item => item.id != action.payload.id)]
+        },
+        additionalFeatures: [...state.additionalFeatures, action.payload ]
       };
+      //return state;
     case "BUY_ITEM":
       console.log("BUY_ITEM")
-      console.log(action.payload);;
+      console.log(action.payload);
       let expland = state.additionalFeatures.filter(item => item.id == action.payload.id);
       return {
         additionalPrice: action.payload.price + state.additionalPrice ,
